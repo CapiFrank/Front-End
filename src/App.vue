@@ -1,23 +1,23 @@
 <template>
+   <Navbar/>
 	<div class="app">
-		<!-- Sidebar -->
 		<Sidebar/>
-
-		<!-- Content -->
 		<router-view></router-view>
 	</div>
 </template>
 
 <script setup>
 import Sidebar from './components/Sidebar.vue'
+import Navbar from './components/Navbar.vue'
 </script>
 <style lang="scss">
 :root {
-	--primary: #4ade80;
-	--primary-alt: #22c55e;
+	--primary: #5B69B3;
+  --secondary: #20253d;
+	--primary-alt: #ffffff;
 	--grey: #64748b;
 	--dark: #1e293b;
-	--dark-alt: #334155;
+	--dark-alt: #ffffff;
 	--light: #f1f5f9;
 	--sidebar-width: 300px;
 }
