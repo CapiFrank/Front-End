@@ -1,5 +1,5 @@
-# Back-End
-This is the back-end part of the project
+# Front-End
+This is the front-end part of the project
 ## INTEGRANTES
 1. Primer Subgrupo
     - Guevara Morales, Jose Alberto       Carné: C03569
