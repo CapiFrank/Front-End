@@ -5,52 +5,72 @@
 				<span class="material-icons">menu</span>
 			</button>
 		</div>
+    
 		<div class="menu">
-			<router-link to="/" class="button">
+			<a :href="$router.resolve({name:'category', params: {id: 101}}).href" class="button">
 				<span class="material-icons">sunny</span>
 				<span class="text">Mi día</span>
-			</router-link>   
-			<router-link to="/welcome" class="button">
+			</a>   
+			<a :href="$router.resolve({name:'category', params: {id: 102}}).href" class="button">
 				<span class="material-icons">info</span>
 				<span class="text">Importante!</span>
-			</router-link>
-			<router-link to="/team" class="button">
+			</a>
+			<a :href="$router.resolve({name:'category', params: {id: 103}}).href" class="button">
 				<span class="material-icons">date_range</span>
 				<span class="text">Planificado</span>
-			</router-link>   
-      <p>
-  <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="first">
-    <span class="material-icons">arrow_drop_down</span>
-		<span class="text">Revisión</span>
-  </a>
-</p>
+			</a>
+      
+      <router-link to="/manageList" class="button">
+        
+				<span class="text">ManageList(Temporal)</span>
+			</router-link>  
+
+
+      
+      <!--  vv Los elementos acá abajo desplegables deben crearse dinámimente vv -->
+      
+      
+    <p>
+      <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="first">
+        <span class="material-icons">arrow_drop_down</span>
+		    <span class="text">Revisión</span>
+      </a>
+    </p>
+      
 <div class="collapse" id="first">
-<router-link to="/home" class="button">
+      <router-link to="/note" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página de inicio</span>
 			</router-link>   
-			<router-link to="/welcome" class="button">
+			
+      <router-link to="/welcome" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página del producto</span>
 			</router-link>
-			<router-link to="/team" class="button">
+			
+      <router-link to="/team" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página de colección</span>
 			</router-link>
+      
       <router-link to="/team" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página del carrito</span>
 			</router-link>
 </div>
 
+
+
+      
        <p>
   <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#second" aria-expanded="false" aria-controls="second">
     <span class="material-icons">arrow_drop_down</span>
 		<span class="text">Estrategia avanzada</span>
   </a>
 </p>
+      
 <div class="collapse" id="second">
-<router-link to="/home" class="button">
+      <router-link to="/home" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Diseño de navegación</span>
 			</router-link>   
@@ -64,6 +84,9 @@
 			</router-link>
 </div>
 
+
+
+      
        <p>
   <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#third" aria-expanded="false" aria-controls="third">
     
@@ -71,8 +94,10 @@
 		<span class="text">Estrategia de retención</span>
   </a>
 </p>
+
+      
 <div class="collapse" id="third">
-<router-link to="/home" class="button">
+      <router-link to="/home" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Recargar</span>
 			</router-link>   
@@ -83,11 +108,20 @@
 			<router-link to="/team" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Estrategia de retención</span>
-			</router-link>
+	</router-link>
 </div>
-		</div>
-	</aside>
+
+      
+		</div> <!-- Fin del Div de Menu -->
+
+</aside>
+  
 </template>
+
+
+
+<!-- Scripts -->
+
 
 <script setup>
 import { ref } from 'vue'
@@ -125,7 +159,7 @@ aside {
 
 	width: calc(2rem + 32px);
 	overflow: hidden;
-	min-height: 100vh;
+	min-height: 92.5vh;
 	padding: 1rem;
 
 	transition: 0.2s ease-in-out;
