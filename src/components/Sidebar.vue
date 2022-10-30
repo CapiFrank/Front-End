@@ -62,7 +62,7 @@
    <template v-if="loadingMenu"> 
      <div class="loading-container"> 
        <div>
-         <img src="/images/loading.gif">
+         <img src="/image/loading.gif">
        </div>
      </div>
    </template>   
