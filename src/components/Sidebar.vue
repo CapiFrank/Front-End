@@ -70,10 +70,12 @@
   <template v-else v-for="(item, index) in menu" :key="`menu_${index}`" >
      
     <p>
+      
       <!-- 
        <a class="button" type="button" data-bs-toggle="collapse" :data-bs-target="`#menu_${index}`" aria-expanded="false" :aria-controls="`menu_${index}`">
       -->
-       
+
+      
        <a class="button" type="button" data-bs-toggle="collapse" data-bs-target = "#Lista1"  aria-expanded="false" aria-controls="'Lista' + item.id">
       <span class="material-icons">arrow_drop_down</span>
 		  <span class="text">{{item.name}}</span> 
@@ -433,4 +435,4 @@ aside {
 		z-index: 99;
 	}
 }
-</style>
+</style>  
