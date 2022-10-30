@@ -12,12 +12,12 @@ const routes = [
   },
   {
     name: 'task',
-    path: '/tasks',
+    path: '/',
     component: TaskList
   },
   {
     name: 'userl',
-    path: '/',
+    path: '/userl',
     component: UserList
   },
   {
