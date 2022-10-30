@@ -33,7 +33,7 @@
 </div>
 <div id="cuadroNotas" class="Notas" >
     <form method="POST" v-on:submit.prevent="saveNote()">
-     <textarea rows="5" cols="10" name="description" v-model="text" minlength="5" class="form-control material-icons" placeholder="&#xf249; Nota" style="font-family:Arial, FontAwesome; font-size:18px;"> </textarea>
+     <textarea rows="5" cols="10" name="description" v-model="text" minlength="5" class="form-control material-icons" placeholder="&#xf249; Nota" style="font-family:Arial, FontAwesome; font-size:16px;"> </textarea>
      <input class="form-control btn btn-primary" type = "submit" value = "Agregar Nota" style="margin: 10px 0px 10px 0px" />
     </form>
   </div>
@@ -120,7 +120,8 @@
             alert("¡Nota guardada correctamente!");
         axios.post('https://stickyquickconnections.jose-albertoa97.repl.co/api/note',postData)
           .then((response) => {
-        return response
+            this.text = '';
+        return response;
             
           }).catch(e=> console.log(e))
            
