@@ -1,5 +1,5 @@
 <template>
-	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+	<aside :class="`${is_expanded ? 'is-expanded' : ''}`"  class="rounded-end" >
 		<div class="menu-toggle-wrap">
 			<button class="menu-toggle" @click="ToggleMenu">
 				<span class="material-icons">menu</span>
@@ -7,6 +7,10 @@
 		</div>
     
 		<div class="menu">
+      <a :href="$router.resolve({name:'task'}).href" class="button">
+				<span class="material-icons">task</span>
+				<span class="text">Inicio</span>
+			</a> 
 			<a :href="$router.resolve({name:'category', params: {id: 101}}).href" class="button">
 				<span class="material-icons">sunny</span>
 				<span class="text">Mi día</span>
@@ -18,41 +22,31 @@
 			<a :href="$router.resolve({name:'category', params: {id: 103}}).href" class="button">
 				<span class="material-icons">date_range</span>
 				<span class="text">Planificado</span>
-			</a>
-      
-      <router-link to="/manageList" class="button">
-        
-				<span class="text">ManageList(Temporal)</span>
-			</router-link>  
+			</a> 
+
+    
 
 
-      
-      <!--  vv Los elementos acá abajo desplegables deben crearse dinámimente vv -->
-      
-      
-    <p>
-      <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="first">
-        <span class="material-icons">arrow_drop_down</span>
-		    <span class="text">Revisión</span>
-      </a>
-    </p>
-      
+           <!--  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -
+       <p>
+  <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="first">
+    <span class="material-icons">arrow_drop_down</span>
+		<span class="text">Revisión</span>
+  </a>
+</p>
 <div class="collapse" id="first">
-      <router-link to="/note" class="button">
+      <router-link to="/home" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página de inicio</span>
 			</router-link>   
-			
-      <router-link to="/welcome" class="button">
+			<router-link to="/welcome" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página del producto</span>
 			</router-link>
-			
-      <router-link to="/team" class="button">
+			<router-link to="/team" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página de colección</span>
 			</router-link>
-      
       <router-link to="/team" class="button">
 				<span class="material-icons">hdr_strong</span>
 				<span class="text">Página del carrito</span>
@@ -60,56 +54,62 @@
 </div>
 
 
+     --> 
 
       
-       <p>
-  <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#second" aria-expanded="false" aria-controls="second">
-    <span class="material-icons">arrow_drop_down</span>
-		<span class="text">Estrategia avanzada</span>
-  </a>
-</p>
       
-<div class="collapse" id="second">
-      <router-link to="/home" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Diseño de navegación</span>
-			</router-link>   
-			<router-link to="/welcome" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Actuación</span>
-			</router-link>
-			<router-link to="/team" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Anuncios</span>
-			</router-link>
-</div>
+      <!--  vv Los elementos acá abajo desplegables deben crearse dinámimente vv -->
+   <template v-if="loadingMenu"> 
+     <div class="loading-container"> 
+       <div>
+         <img src="/images/loading.gif">
+       </div>
+     </div>
+   </template>   
+   
+  <template v-else v-for="(item, index) in menu" :key="`menu_${index}`" >
+     
+    <p>
+      <!-- 
+       <a class="button" type="button" data-bs-toggle="collapse" :data-bs-target="`#menu_${index}`" aria-expanded="false" :aria-controls="`menu_${index}`">
+      -->
+       
+       <a class="button" type="button" data-bs-toggle="collapse" data-bs-target = "#Lista1"  aria-expanded="false" aria-controls="'Lista' + item.id">
+      <span class="material-icons">arrow_drop_down</span>
+		  <span class="text">{{item.name}}</span> 
 
+     <button  @click="actualizarGrupo(item.id, item.name)">
+        <i style="margin: 5px" class="material-icons" >edit</i>
+    </button>
+    </a>
 
+    <!-- |||comentario|||| -->
+       
+    </p>
 
-      
-       <p>
-  <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#third" aria-expanded="false" aria-controls="third">
+    <div :id="'Lista' + item.id" class="collapse" >
+      <router-link to="/" class="button">
+				<span class="material-icons">hdr_strong</span>
+				<span class="text">Página de inicio</span>
+		  </router-link>
+   </div>
     
-    <span class="material-icons">arrow_drop_down</span>
-		<span class="text">Estrategia de retención</span>
-  </a>
-</p>
 
       
-<div class="collapse" id="third">
-      <router-link to="/home" class="button">
+      
+<!-- 
+  <div class="collapse" :id="`menu_${index}`">
+  <template v-for="(submenu, index) in item.submenu" :key="'submenu' + index" >
+    <router-link :to="'/welcome'" class="button">
 				<span class="material-icons">hdr_strong</span>
-				<span class="text">Recargar</span>
-			</router-link>   
-			<router-link to="/welcome" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Reorganizar</span>
-			</router-link>
-			<router-link to="/team" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Estrategia de retención</span>
-	</router-link>
+				<span class="text">{{submenu.name}}</span>
+			</router-link>  
+     </template>
+
 </div>
+-->
+
+</template>
 
       
 		</div> <!-- Fin del Div de Menu -->
@@ -123,19 +123,152 @@
 <!-- Scripts -->
 
 
-<script setup>
-import { ref } from 'vue'
-import logoURL from '../assets/logo.svg'
 
+<script setup> 
+import { ref, onMounted } from 'vue'
+import logoURL from '../assets/logo.svg'
+import axios from 'axios'
+  /**/
+import { inject } from 'vue'
+const swal = inject('$swal')
+  import Swal from 'sweetalert2'
+ 
+  
+  /**/
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
+  
 const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
+
+  
+const menu = ref(null); 
+const loadingMenu = ref(false); 
+const updateError = ref(false);
+
+const listas = ref(null);
+const loadingListas = ref(false);
+
+  
+ onMounted(() => {
+     getTodos(),
+     getListas()
+ })
+  
+  function getTodos() {
+    loadingMenu.value = true;
+    return axios.get('https://stickyquickconnections.jose-albertoa97.repl.co/api/groups').then(      response => {
+        menu.value = response.data
+        }).catch(e=> console.log(e)).finally(()=> loadingMenu.value = false)
+  }
+
+  function getListas() {
+    loadingListas.value = true;
+    return axios.get('https://stickyquickconnections.jose-albertoa97.repl.co/api/checklists').then(      response => {
+        listas.value = response.data
+        }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
+  }
+
+  
+
+  const actualizarGrupo = (id, name) => {
+
+    
+
+    
+    Swal.fire({
+        title: 'EDITAR',
+        html:
+   '<div class="form-group"><div class="row"><label class="col-sm-3 col-form-label">Nombre</label><div class="col-sm-7">    <input id="name" value="'+name+'" type="text" class="form-control" requiered ></div></div></div>' , 
+        focusConfirm: false,
+        showCancelButton: true,                         
+        }).then((result) => {
+          if (result.value) { 
+            loadingMenu.value = true;
+            
+         name = document.getElementById('name').value,
+         
+axios.put(`https://stickyquickconnections.jose-albertoa97.repl.co/api/groups/update/${id}` , {name}).then( response => {
+
+  if(response.status === 200){
+    Swal.fire(
+              '¡Actualizado!',
+              'El registro ha sido actualizado.',
+              'success'
+            )   
+  }else{
+ Swal.fire(
+              '¡Error!',
+              'Ha ocurrido un error',
+              'error'
+            ) 
+    
+  }
+        menu.value = menu.value.map(item => {
+          return item.id === response.data.data.id ? response.data.data : item
+        })
+     console.log(response,  menu.value )}).catch(e=> {console.log(e) 
+                                                     Swal.fire(
+              '¡Error!',
+              'Ha ocurrido un error',
+              'error'
+            ) }
+                                                ).finally(()=> loadingMenu.value = false)
+            
+              
+          }else{
+            Swal.fire(
+              '¡Cancelado!',
+              'Ha cancelado la operación',
+              'error'
+            ) 
+          }
+      
+        });   
+}
+
+
+
+
+  
 </script>
 
 <style lang="scss" scoped>
+
+
+
+  .swal2-html-container{
+  overflow-x: visible !important;
+   overflow-y: visible !important;
+ 
+}
+
+  
+.loading-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 1;
+  flex-grow: 1;
+  hight: 60%;
+  width: 60%;
+}
+.loading-container > div{
+   hight: auto;
+  width: 60%;
+  position: relative;
+    left: 60px;
+  right: 30px;
+  top: 100px
+}  
+.loading-container > div > img{
+  
+  width: 60%;
+  hight: 60%;
+} 
+  
   .btn-bd-primary {
   --bs-btn-font-weight: 600;
   --bs-btn-color: white;
@@ -150,11 +283,13 @@ const ToggleMenu = () => {
   --bs-btn-active-bg: transparent;
   --bs-btn-active-border-color: transparent;
 }
+
 aside {
 	display: flex;
 	flex-direction: column;
 
-	background: linear-gradient(180deg, rgba(88,102,177,1) 0%, rgba(235,235,237,1) 100%) !important;
+	background: linear-gradient(180deg, rgba(88,102,177,1) 0%, 
+  rgba(235,235,237,1) 100%) !important;
 	color: var(--light);
 
 	width: calc(2rem + 32px);
@@ -187,6 +322,9 @@ aside {
 
 .menu-toggle {
 			transition: 0.2s ease-in-out;
+
+
+  
 .material-icons {
 				font-size: 2rem;
 				color: var(--light);
