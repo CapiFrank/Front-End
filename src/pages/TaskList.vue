@@ -22,10 +22,10 @@
   <input type="text" v-model="titulo" class="form-control material-icons" id="exampleFormControlInput1" placeholder="&#xf192; Titulo" style="font-family:Arial, FontAwesome">
 </div>
 <div class="mb-3">
-<button class="form-control" id="exampleFormControlTextarea1" rows="3" @click="AgregueAMiDia()"><i class="material-icons md-24">&#xe518;</i> Agregar a Mi Día</button>
+<button class="form-control btn btn-primary" id="exampleFormControlTextarea1" rows="3" @click="AgregueAMiDia()"><i class="material-icons md-24">&#xe518;</i> Agregar a Mi Día</button>
 </div>
   <div class="mb-3">
-<button class="form-control" id="exampleFormControlTextarea1" rows="3" @click="AgregueAImportante()"><i class="material-icons md-24">&#xe838;</i> Agregar a Importante</button>
+<button class="form-control btn btn-primary" id="exampleFormControlTextarea1" rows="3" @click="AgregueAImportante()"><i class="material-icons md-24">&#xe838;</i> Agregar a Importante</button>
 </div>
   <div class="mb-3">
   <input type="date" class="form-control" id="exampleFormControlInput1"
@@ -34,7 +34,7 @@
 <div id="cuadroNotas" class="Notas" >
     <form method="POST" v-on:submit.prevent="saveNote()">
      <textarea rows="5" cols="10" name="description" v-model="text" minlength="5" class="form-control material-icons" placeholder="&#xf249; Nota" style="font-family:Arial, FontAwesome; font-size:18px;"> </textarea>
-     <input class="form-control" type = "submit" value = "Agregar Nota" style="margin: 10px 0px 10px 0px" />
+     <input class="form-control btn btn-primary" type = "submit" value = "Agregar Nota" style="margin: 10px 0px 10px 0px" />
     </form>
   </div>
    </div> 
