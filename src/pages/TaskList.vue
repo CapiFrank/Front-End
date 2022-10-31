@@ -113,14 +113,14 @@
         }).catch(e=> console.log(e))
       }
       ,
-   saveNote(){
+       saveNote(){
         "" 
         const postData = { text: this.text };
          if (this.text!=""){
             alert("¡Nota guardada correctamente!");
         axios.post('https://stickyquickconnections.jose-albertoa97.repl.co/api/note',postData)
           .then((response) => {
-            this.text = '';
+            
         return response;
             
           }).catch(e=> console.log(e))
