@@ -28,7 +28,7 @@
 <button class="form-control btn btn-primary" id="exampleFormControlTextarea1" rows="3" @click="AgregueAImportante()"><i class="material-icons md-24">&#xe838;</i> Agregar a Importante</button>
 </div>
   <div class="mb-3">
-  <input type="date" class="form-control" id="exampleFormControlInput1"
+  <input v-model="fecha" @change="AgregueAPlaneado()" type="date" class="form-control" id="exampleFormControlInput1"
     style="margin: 10px 0px 0px 0px">
 </div>
 <div id="cuadroNotas" class="Notas" >
@@ -48,6 +48,7 @@
   export default{
     data(){
       return {
+        fecha: "",
         titulo: '',
         text: "",
         todos: null
@@ -87,7 +88,12 @@
         if (task == null) {
           console.log("No se ha seleccionado una tarea!");
         } else {
-          const res = await axios.put('https://stickyquickconnections.jose-albertoa97.repl.co/api/planeado/'+task.id);
+          const res = await axios.put('https://stickyquickconnections.jose-albertoa97.repl.co/api/planeado',{
+            id:task.id,
+            final_date:this.fecha,
+            
+            
+          });
         this.result = res.status;
           location.reload();
           alert(res.data);
