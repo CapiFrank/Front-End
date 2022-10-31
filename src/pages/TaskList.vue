@@ -114,7 +114,7 @@
       }
       ,
        saveNote(){
-        "" <-- estas comillas para qué sirven?
+       
         const postData = { text: this.text };
          if (this.text!=""){
             alert("¡Nota guardada correctamente!");
