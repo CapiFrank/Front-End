@@ -43,6 +43,8 @@
 
 </template>
 
+   <!-- Se generan los scripts con los respectivos métodos y llamados -->
+
 <script>
   import axios from 'axios'
   export default{
@@ -120,7 +122,8 @@
       }
       ,
        saveNote(){
-       
+
+         
         const postData = { text: this.text };
          if (this.text!=""){
             alert("¡Nota guardada correctamente!");
