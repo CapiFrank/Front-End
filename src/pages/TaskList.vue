@@ -19,7 +19,7 @@
   <!-- Esta es una columna -->
 <div class="col bg-secondary bg-opacity-10 form-control">
     <div class="mb-3" style="margin: 15px 0px 0px 0px">
-  <input type="text" v-model="titulo" class="form-control material-icons" id="exampleFormControlInput1" placeholder="&#xf192; Titulo" style="font-family:Arial, FontAwesome">
+  <input type="text" v-model="titulo" readonly class="form-control material-icons" id="exampleFormControlInput1" placeholder="&#xf192; Titulo" style="font-family:Arial, FontAwesome">
 </div>
 <div class="mb-3">
 <button class="form-control btn btn-primary" id="exampleFormControlTextarea1" rows="3" @click="AgregueAMiDia()"><i class="material-icons md-24">&#xe518;</i> Agregar a Mi Día</button>
