@@ -43,10 +43,6 @@
 
 </template>
 
-  <!-- Se generan los scripts con los respectivos métodos y llamados -->
-<!-- comentario de prueba -->
-
-
 <script>
   import axios from 'axios'
   export default{
