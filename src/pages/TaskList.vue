@@ -43,7 +43,8 @@
 
 </template>
 
-   <!-- Se generan los scripts con los respectivos métodos y llamados -->
+  <!-- Se generan los scripts con los respectivos métodos y llamados -->
+
 
 <script>
   import axios from 'axios'
