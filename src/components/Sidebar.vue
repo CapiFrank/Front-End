@@ -38,35 +38,30 @@
   <template v-else v-for="(item, index) in menu" :key="`menu_${index}`" >
      
     <p>
+       <!-- configurar data-bs-target, problemas -->
        <a class="button" type="button" data-bs-toggle="collapse" 
-
-         data-bs-target= "#Lista16"  
-         
+            
+         data-bs-target= "#Lista1"  
          
          aria-expanded="true">
-      <span class="material-icons">arrow_drop_down</span>
-		  <span class="text">{{item.name}}</span>
-      
-     <button  @click="actualizarGrupo(item.id, item.name)">
-        <i style="margin: 5px" class="material-icons" >edit</i>
-    </button>
-    </a>
-      
-         
+          <span class="material-icons">arrow_drop_down</span>
+    		  <span class="text" style="width: 190px" >{{item.name}}</span>
+
+          <!-- boton con script para actualizar -->
+          <button  @click="actualizarGrupo(item.id, item.name)">
+            <i style="margin: 5px" class="material-icons" >edit</i>
+          </button>
+         </a>      
     </p>
-
-    <!--xd  -->
-
-        
-    <!--xd  -->
-
+  <!-- vfor para desplegar -->
     <a v-for="(lista, index) in listas">
       <template v-if="lista.id_checklist_group === item.id">    
             <div :id="'Lista'+item.id" class="collapse" >
-                <router-link to="/" class="button">
+                <router-link to="/" class="button" >
     				      <span class="material-icons 20">label</span>
-				          <span class="text">Página de inicio</span>
+				          <span class="text" style="width: 130px" >{{lista.name}}</span>
                   <div class="aderecha">
+                    <!-- boton con script para eliminar -->
                     <button @click="eliminarlista(lista.id, lista.name)">
                       <i style="margin: 2px" class="material-icons" >delete</i>
                     </button>
@@ -76,7 +71,7 @@
      </template>  
     </a>
 
-</template>
+</template> <!-- fin  -->
 
       
 		</div> <!-- Fin del Div de Menu -->
@@ -456,7 +451,7 @@ aside {
   
 .aderecha{
   position:relative;
-  left: 60px;
+  left: 3rem;
 }
   
 </style>  
