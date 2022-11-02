@@ -17,7 +17,7 @@
 			</a>   
 			<a :href="$router.resolve({name:'category', params: {id: 102}}).href" class="button">
 				<span class="material-icons">info</span>
-				<span class="text">Importante!</span>
+				<span class="text">Importante</span>
 			</a>
 			<a :href="$router.resolve({name:'category', params: {id: 103}}).href" class="button">
 				<span class="material-icons">date_range</span>
