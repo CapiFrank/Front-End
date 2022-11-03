@@ -121,14 +121,14 @@ const loadingListas = ref(false);
   
   function getTodos() {
     loadingMenu.value = true;
-    return axios.get('https://stickyquickconnections.jose-albertoa97.repl.co/api/groups').then(      response => {
+    return axios.get('https://backend.jose-albertoa97.repl.co/api/groups').then(      response => {
         menu.value = response.data
         }).catch(e=> console.log(e)).finally(()=> loadingMenu.value = false)
   }
 
   function getListas() {
     loadingListas.value = true;
-    return axios.get('https://stickyquickconnections.jose-albertoa97.repl.co/api/checklists').then(      response => {
+    return axios.get('https://backend.jose-albertoa97.repl.co/api/checklists').then(      response => {
         listas.value = response.data
         }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
   }
@@ -151,7 +151,7 @@ const loadingListas = ref(false);
             
          name = document.getElementById('name').value,
          
-axios.put(`https://stickyquickconnections.jose-albertoa97.repl.co/api/groups/update/${id}` , {name}).then( response => {
+axios.put(`https://backend.jose-albertoa97.repl.co/api/groups/update/${id}` , {name}).then( response => {
 
   if(response.status === 200){
     Swal.fire(
@@ -204,7 +204,7 @@ axios.put(`https://stickyquickconnections.jose-albertoa97.repl.co/api/groups/upd
             
          name = document.getElementById('namelist').value,
          
-axios.delete(`https://stickyquickconnections.jose-albertoa97.repl.co/api/lists/destroy/${id}` , {name}).then( response => {
+axios.delete(`https://backend.jose-albertoa97.repl.co/api/lists/destroy/${id}` , {name}).then( response => {
 
   if(response.status === 200){
     
