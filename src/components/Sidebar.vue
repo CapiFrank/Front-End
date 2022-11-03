@@ -17,44 +17,12 @@
 			</a>   
 			<a :href="$router.resolve({name:'category', params: {id: 102}}).href" class="button">
 				<span class="material-icons">info</span>
-				<span class="text">Importante!</span>
+				<span class="text">Importante</span>
 			</a>
 			<a :href="$router.resolve({name:'category', params: {id: 103}}).href" class="button">
 				<span class="material-icons">date_range</span>
 				<span class="text">Planificado</span>
-			</a> 
-
-    
-
-
-           <!--  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -
-       <p>
-  <a class="button" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="first">
-    <span class="material-icons">arrow_drop_down</span>
-		<span class="text">Revisión</span>
-  </a>
-</p>
-<div class="collapse" id="first">
-      <router-link to="/home" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Página de inicio</span>
-			</router-link>   
-			<router-link to="/welcome" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Página del producto</span>
-			</router-link>
-			<router-link to="/team" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Página de colección</span>
-			</router-link>
-      <router-link to="/team" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Página del carrito</span>
-			</router-link>
-</div>
-
-
-     --> 
+			</a>
 
       
       
@@ -70,48 +38,40 @@
   <template v-else v-for="(item, index) in menu" :key="`menu_${index}`" >
      
     <p>
-      
-      <!-- 
-       <a class="button" type="button" data-bs-toggle="collapse" :data-bs-target="`#menu_${index}`" aria-expanded="false" :aria-controls="`menu_${index}`">
-      -->
+       <!-- configurar data-bs-target, problemas -->
+       <a class="button" type="button" data-bs-toggle="collapse" 
+            
+         data-bs-target= "#Lista1"  
+         
+         aria-expanded="true">
+          <span class="material-icons">arrow_drop_down</span>
+    		  <span class="text" style="width: 190px" >{{item.name}}</span>
 
-      
-       <a class="button" type="button" data-bs-toggle="collapse" data-bs-target = "#Lista1"  aria-expanded="false" aria-controls="'Lista' + item.id">
-      <span class="material-icons">arrow_drop_down</span>
-		  <span class="text">{{item.name}}</span> 
-
-     <button  @click="actualizarGrupo(item.id, item.name)">
-        <i style="margin: 5px" class="material-icons" >edit</i>
-    </button>
+          <!-- boton con script para actualizar -->
+          <button  @click="actualizarGrupo(item.id, item.name)">
+            <i style="margin: 5px" class="material-icons" >edit</i>
+          </button>
+         </a>      
+    </p>
+  <!-- vfor para desplegar -->
+    <a v-for="(lista, index) in listas">
+      <template v-if="lista.id_checklist_group === item.id">    
+            <div :id="'Lista'+item.id" class="collapse" >
+                <router-link to="/" class="button" >
+    				      <span class="material-icons 20">label</span>
+				          <span class="text" style="width: 130px" >{{lista.name}}</span>
+                  <div class="aderecha">
+                    <!-- boton con script para eliminar -->
+                    <button @click="eliminarlista(lista.id, lista.name)">
+                      <i style="margin: 2px" class="material-icons" >delete</i>
+                    </button>
+                </div>
+    		        </router-link>
+            </div>
+     </template>  
     </a>
 
-    <!-- |||comentario|||| -->
-       
-    </p>
-
-    <div :id="'Lista' + item.id" class="collapse" >
-      <router-link to="/" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">Página de inicio</span>
-		  </router-link>
-   </div>
-    
-
-      
-      
-<!-- 
-  <div class="collapse" :id="`menu_${index}`">
-  <template v-for="(submenu, index) in item.submenu" :key="'submenu' + index" >
-    <router-link :to="'/welcome'" class="button">
-				<span class="material-icons">hdr_strong</span>
-				<span class="text">{{submenu.name}}</span>
-			</router-link>  
-     </template>
-
-</div>
--->
-
-</template>
+</template> <!-- fin  -->
 
       
 		</div> <!-- Fin del Div de Menu -->
@@ -173,7 +133,6 @@ const loadingListas = ref(false);
         }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
   }
 
-  
 
   const actualizarGrupo = (id, name) => {
 
@@ -231,6 +190,60 @@ axios.put(`https://stickyquickconnections.jose-albertoa97.repl.co/api/groups/upd
         });   
 }
 
+  const eliminarlista = (id, name) => {
+
+    Swal.fire({
+        title: '¿Eliminar Lista?',
+        html:
+   '<div class="form-group">    <label id="namelist">"'+name+'"</label> </div>' , 
+        focusConfirm: false,
+        showCancelButton: true,                         
+        }).then((result) => {
+          if (result.value) { 
+            loadingMenu.value = true;
+            
+         name = document.getElementById('namelist').value,
+         
+axios.delete(`https://stickyquickconnections.jose-albertoa97.repl.co/api/lists/destroy/${id}` , {name}).then( response => {
+
+  if(response.status === 200){
+    
+    Swal.fire(
+              '¡Eliminado!',
+              'Se ha eliminado con éxito.',
+              'success'
+            )
+  }else{
+ Swal.fire(
+              '¡Error!',
+              'Ha ocurrido un error',
+              'error'
+            ) 
+    
+  }
+  
+  listas.value = listas.value.map(lista => {
+          return lista.id === response.data.data.id ? response.data.data : lista
+        })
+     console.log(response,  listas.value )}).catch(e=> {console.log(e) 
+                                                     Swal.fire(
+              '¡Error!',
+              'Ha ocurrido un error 1',
+              'error'
+            ) }
+                                                ).finally(()=> loadingMenu.value = false)
+            
+              
+          }else{
+            Swal.fire(
+              '¡Cancelado!',
+              'Ha cancelado la operación',
+              'error'
+            ) 
+          }
+      
+        });
+}
 
 
 
@@ -435,4 +448,10 @@ aside {
 		z-index: 99;
 	}
 }
+  
+.aderecha{
+  position:relative;
+  left: 3rem;
+}
+  
 </style>  

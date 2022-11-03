@@ -3,7 +3,8 @@
 <div class="col accordion" id="accordionExample">
   <div class="accordion-item" v-for="(todo,index) in todos" :key="todo.id" style="width:55vw; overflow:hidden;">
     <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button" v-bind:class = "(todo.my_day === 1 || todo.important === 1 || todo.final_date !== null)?'bg-secondary bg-opacity-25':'collapsed'" type="button" data-bs-toggle="collapse" v-b-toggle="'accordion-' + index" aria-expanded="true" aria-controls="todo.id" @click="selection(todo)">
+      <button class="accordion-button" v-bind:class = "(todo.my_day === 1 || todo.important === 1 || todo.final_date !== null)?'bg-secondary bg-opacity-25':'collapsed'" type="button" data-bs-toggle="collapse" 
+        v-b-toggle="'accordion-' + index" aria-expanded="true" aria-controls="todo.id" @click="selection(todo)">
         <div>
           {{ todo.title }}
         </div>
@@ -41,6 +42,7 @@
 </div>
 
 
+  
 </template>
 
 <script>
@@ -120,7 +122,8 @@
       }
       ,
        saveNote(){
-       
+
+         
         const postData = { text: this.text };
          if (this.text!=""){
             alert("¡Nota guardada correctamente!");
