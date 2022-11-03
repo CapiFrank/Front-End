@@ -27,7 +27,7 @@
     },
     methods: {
       getTodos(){
-        axios.get('https://stickyquickconnections.jose-albertoa97.repl.co/api/users').then( response => {
+        axios.get('https://stickyquickconnections.mary-angelangel.repl.co/api/users').then( response => {
           this.todos = response.data
         }).catch(e=> console.log(e))
       }
