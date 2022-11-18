@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import BootstrapVue3 from 'bootstrap-vue-3'
+import Vuelidate from 'vuelidate'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
@@ -9,6 +10,7 @@ import Default from './layout/default.vue'
 import Blank from './layout/blank.vue'
 
 const app = createApp(App)
+app.use(Vuelidate)
 app.use(BootstrapVue3)
 app.use(router)
 
