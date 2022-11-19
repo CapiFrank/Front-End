@@ -22,7 +22,7 @@
               <input
                 type="text"
                 class="form-control"
-                :class="{ 'is-invalid': v$.username.$error }"
+                :class="{ 'is-invalid': v$.username.$error || state.user_bool}"
                 id="floatingUsername"
                 v-model="state.username"
                 placeholder="Nombre de usuario"
@@ -38,6 +38,9 @@
               </div>
               <div class="invalid-feedback" v-if="v$.username.required.$invalid">
                 Este campo es requerido
+              </div>
+              <div class="invalid-feedback" v-if="state.user_bool">
+                El nombre de usuario ya se encuentra en uso
               </div>
             </div>
             <div class="row">
@@ -181,7 +184,7 @@
               <input
                 type="text"
                 class="form-control"
-                :class="{ 'is-invalid': v$.email.$error }"
+                :class="{ 'is-invalid': v$.email.$error || state.email_bool }"
                 id="floatingEmail"
                 v-model="state.email"
                 placeholder="name@example.com"
@@ -189,6 +192,9 @@
               <label for="floatingEmail">Correo</label>
               <div class="invalid-feedback" v-if="v$.email.required.$invalid">
                 Este campo es requerido
+              </div>
+              <div class="invalid-feedback" v-if="state.email_bool">
+                El correo electronico ya se encuentra en uso
               </div>
             </div>
             <button
@@ -220,6 +226,8 @@
         fSurname: '',
         sSurname: '',
         email:'',
+        email_bool: false,
+        user_bool: false,
       })
     const rules = computed(() => {
       return{
@@ -267,6 +275,8 @@
     methods:{
       guarde(){
         this.v$.$validate()
+        this.state.user_bool=false;
+        this.state.email_bool=false;
         if(!this.v$.$error){
           var user = {
           "username" : this.state.username,
@@ -290,6 +300,16 @@
         this.state.email = '';
 }).catch((err) => {
    console.log(err);
+          if(err.response.status == 421){
+            this.state.user_bool=true;
+            this.state.email_bool=true;
+          }
+          if(err.response.status == 422){
+            this.state.user_bool=true;
+          }
+          if(err.response.status == 423){
+            this.state.email_bool=true;
+          }
 });
 }},
       vuelvaAlInicio(){
