@@ -85,7 +85,6 @@
 <!-- Scripts -->
 
 
-
 <script setup> 
 import { ref, onMounted } from 'vue'
 import logoURL from '../assets/logo.svg'

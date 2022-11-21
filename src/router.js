@@ -3,6 +3,8 @@ import WelcomePage from "./pages/WelcomePage.vue"
 import UserList from "./pages/UserList.vue"
 import TaskList from "./pages/TaskList.vue"
 import TaskCategory from "./pages/TaskCategory.vue"
+import EditUser from "./pages/EditUser.vue"
+
 
 const routes = [
   {
@@ -25,6 +27,13 @@ const routes = [
     path: '/cat/:id',
     component: TaskCategory
   }
+  ,
+  {
+    name: 'edituser',
+    path: '/edituser/:id',
+    component: EditUser
+  }
+  
 ]
 const router = createRouter({
   history: createWebHistory(),
