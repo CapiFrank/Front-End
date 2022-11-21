@@ -7,7 +7,7 @@
       <thead>
         <tr>
           <th>N°</th>
-          <th>Nombre</th>
+          <th>Nombre </th>
           <th>Correo</th>
           <th>Acción</th>
         </tr>
