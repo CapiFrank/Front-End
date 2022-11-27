@@ -11,8 +11,11 @@
       </form>
       <div class="ms-auto">
       <a href="/" class="link-dark"><span>Get Consultation</span></a>
-        <a class="hp-color" href="/"><i class="fa fa-user-circle"></i><span></span></a>
+        <a class="hp-color" href="/"><i class="fa fa-user-circle"></i><span>
+          </span></a>
         <a class="hp-color" href="/"><i class="fa fa-circle-question"></i><span></span></a>
+        <br>
+        <a href="/userl" class="link-dark"><span>Editar Usuarios</span></a>
     </div>
     </div>
   </div>
@@ -32,3 +35,4 @@
   margin: 0px 0px 10px 10px;
   }
 </style>
+
