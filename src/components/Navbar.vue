@@ -11,7 +11,7 @@
       </form>
       <div class="ms-auto">
       <a href="/" class="link-dark"><span>Get Consultation</span></a>
-        <a class="hp-color" href="/"><i class="fa fa-user-circle"></i><span>
+        <a class="hp-color" href="/register"><i class="fa fa-user-circle"></i><span>
           </span></a>
         <a class="hp-color" href="/"><i class="fa fa-circle-question"></i><span></span></a>
         <br>
