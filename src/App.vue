@@ -1,14 +1,21 @@
 <template>
-   <Navbar/>
 	<div class="app">
-		<Sidebar/>
-		<router-view></router-view>
+		<component :is="layout">
+      <router-view/>
+    </component>
 	</div>
 </template>
 
-<script setup>
-import Sidebar from './components/Sidebar.vue'
-import Navbar from './components/Navbar.vue'
+<script>
+  const defaultLayout = 'default'
+export default{
+  name: 'App',
+  computed:{
+    layout(){
+      return(this.$route.meta.Layout || defaultLayout) + '-layout'
+    }
+  }
+}
 </script>
 <style lang="scss">
 :root {
@@ -36,15 +43,5 @@ button {
 	border: none;
 	outline: none;
 	background: none;
-}
-.app {
-	display: flex;
-	main {
-		flex: 1 1 0;
-		padding: 2rem;
-		@media (max-width: 1024px) {
-			padding-left: 6rem;
-		}
-	}
 }
 </style>

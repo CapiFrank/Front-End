@@ -4,7 +4,7 @@ import UserList from "./pages/UserList.vue"
 import TaskList from "./pages/TaskList.vue"
 import TaskCategory from "./pages/TaskCategory.vue"
 import EditUser from "./pages/EditUser.vue"
-
+import Register from "./pages/Register.vue"
 
 const routes = [
   {
@@ -26,6 +26,12 @@ const routes = [
     name: 'category',
     path: '/cat/:id',
     component: TaskCategory
+  },
+  {
+    name: 'register',
+    path: '/register',
+    meta: { Layout: 'blank' },
+    component: Register
   }
   ,
   {
