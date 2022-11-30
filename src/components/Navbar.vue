@@ -14,13 +14,42 @@
         <a class="hp-color" href="/register"><i class="fa fa-user-circle"></i><span>
           </span></a>
         <a class="hp-color" href="/"><i class="fa fa-circle-question"></i><span></span></a>
+        		<button class="menu-toggle" @click="logOut">
+         <a class="hp-color" href="/"><i class="fa fa-sign-out"></i><span></span></a>
+            </button>
         <br>
-        <a href="/userl" class="link-dark"><span>Editar Usuarios</span></a>
+              <template v-if="estado"> 
+                <a href="/userl" class="link-dark"  ><span >Editar Usuarios</span></a>
+              </template>
     </div>
     </div>
   </div>
 </nav>
 </template>
+<script setup>
+ import { ref, onMounted } from 'vue'
+let estado = ref(false); 
+
+
+  const logOut = () => {
+	localStorage.clear();
+}
+
+ onMounted(() => {
+       verif() 
+ })
+
+function verif() {
+  if (localStorage.getItem('rol') == 1) {
+  estado.value = true;
+}else{
+  estado.value = false;
+}
+}
+
+  
+</script> 
+  
 <style lang="scss" scoped>
   @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
 .bg-custom {

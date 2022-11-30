@@ -72,9 +72,10 @@
     
     },
     methods:{
+    
       editar(){
         try {
-          axios.put(`https://backend.mary-angelangel.repl.co/api/users/update/${this.form.userId}`, this.form)
+          axios.put(`https://backend.jose-albertoa97.repl.co/api/users/update/${this.form.userId}`, this.form)
           .then( data => {
            alert("¡Se ha actualizado el usuario!");
         })
@@ -84,12 +85,14 @@
         this.$router.push('/userl/');
         
       }
-
+  
       
     },
     mounted:function(){
+  if(localStorage.getItem('token')){
+      
       this.form.userId = this.$route.params.id;
-      axios.get("https://backend.mary-angelangel.repl.co/api/users?id="+this.form.userId)
+      axios.get("https://backend.jose-albertoa97.repl.co/api/users?id="+this.form.userId)
       .then(datos => {
         this.form.username = datos.data[0].username;
          this.form.first_name = datos.data[0].first_name;
@@ -99,6 +102,9 @@
          this.form.email = datos.data[0].email;
         console.log(this.form);
       })
+  }else{
+    window.location.href = '/'; 
+  }
     }
   }
     

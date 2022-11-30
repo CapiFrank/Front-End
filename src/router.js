@@ -5,6 +5,9 @@ import TaskList from "./pages/TaskList.vue"
 import TaskCategory from "./pages/TaskCategory.vue"
 import EditUser from "./pages/EditUser.vue"
 import Register from "./pages/Register.vue"
+import AgregarPage from "./pages/AgregarPage.vue"
+import PagesList from "./pages/PagesList.vue"
+import Login from "./pages/Login.vue"
 
 const routes = [
   {
@@ -14,7 +17,7 @@ const routes = [
   },
   {
     name: 'task',
-    path: '/',
+    path: '/task',
     component: TaskList
   },
   {
@@ -38,7 +41,22 @@ const routes = [
     name: 'edituser',
     path: '/edituser/:id',
     component: EditUser
-  }
+  },
+  {
+    name: 'AgregarPaginas',
+    path: '/AgregarPaginas',
+    component: AgregarPage
+    
+  },
+  {name: 'PagesList',
+  path: '/PagesList',
+  component: PagesList
+  },
+  {name: 'Login',
+  path: '/',
+  meta: { Layout: 'blank' },
+  component: Login
+  },
   
 ]
 const router = createRouter({

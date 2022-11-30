@@ -58,12 +58,16 @@
       }
     },
     mounted(){
+        if(localStorage.getItem('token')){
       this.getTodos();
+  }else{
+      window.location.href = '/'; 
+  }
     },
     methods: {
       getTodos(){
         var id = this.$route.params.id;
-        axios.get('https://backend.mary-angelangel.repl.co/api/task?'+id).then( response => {
+        axios.get('https://backend.jose-albertoa97.repl.co/api/task?'+id).then( response => {
           this.todos = response.data
         }).catch(e=> console.log(e))
       },

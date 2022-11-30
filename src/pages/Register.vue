@@ -298,6 +298,7 @@
         this.state.fSurname = '';
         this.state.sSurname = '';
         this.state.email = '';
+          this.$router.push('/')
 }).catch((err) => {
    console.log(err);
           if(err.response.status == 421){
@@ -313,7 +314,7 @@
 });
 }},
       vuelvaAlInicio(){
-        this.$router.push('/')
+        this.$router.push('/task')
       }
       }
     }

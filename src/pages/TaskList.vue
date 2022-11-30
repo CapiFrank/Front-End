@@ -57,8 +57,12 @@
       }
     },
     mounted(){
+       if(localStorage.getItem('token')){
       this.getTodos();
       this.deleteItem();
+       }else{
+         window.location.href = '/'; 
+       }
     },
     methods: {
       async AgregueAMiDia(){
@@ -66,7 +70,7 @@
         if (task == null) {
           console.log("No se ha seleccionado una tarea!");
         } else {
-          const res = await axios.put('https://backend.mary-angelangel.repl.co/api/midia/'+task.id);
+          const res = await axios.put('https://backend.jose-albertoa97.repl.co/api/midia/'+task.id);
         this.result = res.status;
           location.reload();
           alert(res.data);
@@ -78,7 +82,7 @@
         if (task == null) {
           console.log("No se ha seleccionado una tarea!");
         } else {
-          const res = await axios.put('https://backend.mary-angelangel.repl.co/api/important/'+task.id);
+          const res = await axios.put('https://backend.jose-albertoa97.repl.co/api/important/'+task.id);
         this.result = res.status;
           location.reload();
           alert(res.data);
@@ -90,7 +94,7 @@
         if (task == null) {
           console.log("No se ha seleccionado una tarea!");
         } else {
-          const res = await axios.put('https://backend.mary-angelangel.repl.co/api/planeado',{
+          const res = await axios.put('https://backend.jose-albertoa97.repl.co/api/planeado',{
             id:task.id,
             final_date:this.fecha,
             
@@ -116,7 +120,7 @@
         
       },
       getTodos(){
-        axios.get('https://backend.mary-angelangel.repl.co/api/task').then( response => {
+        axios.get('https://backend.jose-albertoa97.repl.co/api/task').then( response => {
           this.todos = response.data
         }).catch(e=> console.log(e))
       }
@@ -127,7 +131,7 @@
         const postData = { text: this.text };
          if (this.text!=""){
             alert("¡Nota guardada correctamente!");
-        axios.post('https://backend.mary-angelangel.repl.co/api/note',postData)
+        axios.post('https://backend.jose-albertoa97.repl.co/api/note',postData)
           .then((response) => {
             
         return response;
