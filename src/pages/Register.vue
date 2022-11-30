@@ -313,7 +313,7 @@
 });
 }},
       vuelvaAlInicio(){
-        this.$router.push('/')
+        this.$router.push('/task')
       }
       }
     }

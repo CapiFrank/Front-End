@@ -58,7 +58,11 @@
       }
     },
     mounted(){
+        if(localStorage.getItem('token')){
       this.getTodos();
+  }else{
+      window.location.href = '/'; 
+  }
     },
     methods: {
       getTodos(){

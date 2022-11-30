@@ -57,8 +57,12 @@
       }
     },
     mounted(){
+       if(localStorage.getItem('token')){
       this.getTodos();
       this.deleteItem();
+       }else{
+         window.location.href = '/'; 
+       }
     },
     methods: {
       async AgregueAMiDia(){

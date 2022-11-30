@@ -72,6 +72,7 @@
     
     },
     methods:{
+    
       editar(){
         try {
           axios.put(`https://backend.mary-angelangel.repl.co/api/users/update/${this.form.userId}`, this.form)
@@ -84,10 +85,12 @@
         this.$router.push('/userl/');
         
       }
-
+  
       
     },
     mounted:function(){
+  if(localStorage.getItem('token')){
+      
       this.form.userId = this.$route.params.id;
       axios.get("https://backend.mary-angelangel.repl.co/api/users?id="+this.form.userId)
       .then(datos => {
@@ -99,6 +102,9 @@
          this.form.email = datos.data[0].email;
         console.log(this.form);
       })
+  }else{
+    window.location.href = '/'; 
+  }
     }
   }
     
