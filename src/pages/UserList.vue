@@ -45,8 +45,12 @@
       }
     },
     mounted(){
+
+     if(localStorage.getItem('token')){
       this.getTodos();
-      
+     }else{
+       window.location.href = '/Login';  
+     }
     },
     methods: {
       getTodos(){

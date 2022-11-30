@@ -24,7 +24,13 @@
 				<span class="text">Planificado</span>
 			</a>
 
-      
+      <template v-if="estado"> 
+      <a :href="$router.resolve({name:'PagesList'}).href" class="button" >
+         <span class="material-icons">laptop</span>
+         <span class="text" style="width: 190px" >Páginas</span>
+           </a>
+     
+         </template>
       
       <!--  vv Los elementos acá abajo desplegables deben crearse dinámimente vv -->
    <template v-if="loadingMenu"> 
@@ -47,10 +53,12 @@
           <span class="material-icons">arrow_drop_down</span>
     		  <span class="text" style="width: 190px" >{{item.name}}</span>
 
+           <template v-if="estado"> 
           <!-- boton con script para actualizar -->
           <button  @click="actualizarGrupo(item.id, item.name)">
             <i style="margin: 5px" class="material-icons" >edit</i>
           </button>
+           </template>
          </a>      
     </p>
   <!-- vfor para desplegar -->
@@ -62,9 +70,11 @@
 				          <span class="text" style="width: 130px" >{{lista.name}}</span>
                   <div class="aderecha">
                     <!-- boton con script para eliminar -->
+                       <template v-if="estado"> 
                     <button @click="eliminarlista(lista.id, lista.name)">
                       <i style="margin: 2px" class="material-icons" >delete</i>
                     </button>
+                       </template>
                 </div>
     		        </router-link>
             </div>
@@ -86,7 +96,7 @@
 
 
 <script setup> 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted /*computed */} from 'vue'
 import logoURL from '../assets/logo.svg'
 import axios from 'axios'
   /**/
@@ -108,36 +118,44 @@ const ToggleMenu = () => {
 const menu = ref(null); 
 const loadingMenu = ref(false); 
 const updateError = ref(false);
-
 const listas = ref(null);
 const loadingListas = ref(false);
-
+  
+let estado = ref(false); 
   
  onMounted(() => {
+
+ 
      getTodos(),
-     getListas()
+     getListas(),
+       verif() 
+         
  })
+
+function verif() {
+  if (localStorage.getItem('rol') == 1) {
+  estado.value = true;
+}else{
+  estado.value = false;
+}
+}
   
   function getTodos() {
     loadingMenu.value = true;
-    return axios.get('https://backend.mary-angelangel.repl.co/api/groups').then(      response => {
+    return axios.get('https://backend.mary-angelangel.repl.co/api/groups').then(response => {
         menu.value = response.data
         }).catch(e=> console.log(e)).finally(()=> loadingMenu.value = false)
   }
 
   function getListas() {
     loadingListas.value = true;
-    return axios.get('https://backend.mary-angelangel.repl.co/api/checklists').then(      response => {
+    return axios.get('https://backend.mary-angelangel.repl.co/api/checklists').then(response => {
         listas.value = response.data
         }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
   }
 
 
   const actualizarGrupo = (id, name) => {
-
-    
-
-    
     Swal.fire({
         title: 'EDITAR',
         html:
@@ -151,39 +169,30 @@ const loadingListas = ref(false);
          name = document.getElementById('name').value,
          
 axios.put(`https://backend.mary-angelangel.repl.co/api/groups/update/${id}` , {name}).then( response => {
-
   if(response.status === 200){
     Swal.fire(
               '¡Actualizado!',
               'El registro ha sido actualizado.',
-              'success'
-            )   
+              'success');  
   }else{
- Swal.fire(
+    Swal.fire(
               '¡Error!',
               'Ha ocurrido un error',
-              'error'
-            ) 
-    
+              'error');    
   }
         menu.value = menu.value.map(item => {
           return item.id === response.data.data.id ? response.data.data : item
         })
      console.log(response,  menu.value )}).catch(e=> {console.log(e) 
-                                                     Swal.fire(
+               Swal.fire(
               '¡Error!',
               'Ha ocurrido un error',
-              'error'
-            ) }
-                                                ).finally(()=> loadingMenu.value = false)
-            
-              
+              'error'); } ).finally(()=> loadingMenu.value = false)  
           }else{
             Swal.fire(
               '¡Cancelado!',
               'Ha cancelado la operación',
-              'error'
-            ) 
+              'error');
           }
       
         });   
@@ -217,8 +226,7 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
               '¡Error!',
               'Ha ocurrido un error',
               'error'
-            ) 
-    
+            )   
   }
   
   listas.value = listas.value.map(lista => {
@@ -230,9 +238,7 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
               'Ha ocurrido un error 1',
               'error'
             ) }
-                                                ).finally(()=> loadingMenu.value = false)
-            
-              
+                                                ).finally(()=> loadingMenu.value = false)   
           }else{
             Swal.fire(
               '¡Cancelado!',
@@ -240,7 +246,6 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
               'error'
             ) 
           }
-      
         });
 }
 
