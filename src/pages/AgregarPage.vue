@@ -39,7 +39,7 @@ const swal = inject('$swal')
        const postData = { title: this.title, subtitle: this.subtitle, content: this.content};
       
        if (this.titulo!=""){
-  axios.post('https://ProyectoAnalsis.derianbustos.repl.co/api/Page/save',postData)
+  axios.post('https://backend.jose-albertoa97.repl.co/api/Page/save',postData)
           .then((response) => {
              Swal.fire(
               '¡Se agregó la pagina!',

@@ -57,7 +57,7 @@
   methods: {
     
       getTodos(){     
-axios.get('https://ProyectoAnalsis.derianbustos.repl.co/api/Page').then(      response => {
+axios.get('https://backend.jose-albertoa97.repl.co/api/Page').then(      response => {
        this.todos = response.data
         }).catch(e=> console.log(e))
         

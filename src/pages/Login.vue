@@ -107,7 +107,7 @@
         
        //    if(!this.v$.$error){
          
-axios.post(`https://ProyectoAnalsis.derianbustos.repl.co/api/login`, {email: this.state.email, password:  this.state.password,}).then( data=>{
+axios.post(`https://backend.jose-albertoa97.repl.co/api/login`, {email: this.state.email, password:  this.state.password,}).then( data=>{
            if(data.data.status == 1){
              localStorage.token = data.data.msg; 
             localStorage.rol = data.data.rol;
