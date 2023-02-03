@@ -1,7 +1,7 @@
 <template>
   <div
     class="container card text-center"
-    style="background: white; width: 25rem; padding: 2em 2em 0px 2em"
+    style="background: white; width: 40rem; padding: 2em 2em 0px 2em"
   >
     <div class="row justify-content-start">
       <button
@@ -14,194 +14,104 @@
       <div class="col align-self-center">
         <main class="form-signin w-100 m-auto">
           <form onsubmit="event.preventDefault();" novalidate>
-            <i
-              class="fa-regular fa-circle-user fa-10x"
-              style="color: #673ab7"
-            ></i>
-            <div class="form-floating" style="margin: 1em 0px 0px 0px">
-              <input
-                type="text"
-                class="form-control"
-                :class="{ 'is-invalid': v$.username.$error || state.user_bool}"
-                id="floatingUsername"
-                v-model="state.username"
-                placeholder="Nombre de usuario"
-              />
-              <label for="floatingUsername">Nombre de usuario</label>
-              <div
-                class="invalid-feedback"
-                v-if="v$.username.minLength.$invalid || v$.username.maxLength.$invalid"
-              >
-                El nombre de usuario debe contener entre
-                {{v$.username.minLength.$params.min}} y
-                {{v$.username.maxLength.$params.max}} caracteres
-              </div>
-              <div class="invalid-feedback" v-if="v$.username.required.$invalid">
-                Este campo es requerido
-              </div>
-              <div class="invalid-feedback" v-if="state.user_bool">
-                El nombre de usuario ya se encuentra en uso
-              </div>
+            <i  class="fa-regular fa-circle-user fa-10x"  style="color: #673ab7"></i>
+              <div class="form-floating" style="margin: 1em 0px 0px 0px">
+                <input  type="text" class="form-control"  :class="{ 'is-invalid': v$.username.$error || state.user_bool}" id="floatingUsername" v-model="state.username"  placeholder="Nombre de usuario"/>
+                 <label for="floatingUsername">Nombre de usuario</label>
+                   <div class="invalid-feedback" v-if="v$.username.minLength.$invalid || v$.username.maxLength.$invalid">
+                      El nombre de usuario debe contener entre
+                        {{v$.username.minLength.$params.min}} y
+                          {{v$.username.maxLength.$params.max}} caracteres
+                   </div>
+    <div class="invalid-feedback" v-if="v$.username.required.$invalid">
+      Este campo es requerido
+    </div>
+       <div class="invalid-feedback" v-if="state.user_bool">
+        El nombre de usuario ya se encuentra en uso
+          </div>
             </div>
-            <div class="row">
+           <div class="row">
               <div class="col">
                 <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="password"
-                    class="form-control"
-                    :class="{ 'is-invalid': v$.password.$error }"
-                    id="floatingPassword"
-                    v-model="state.password"
-                    placeholder="Contraseña"
-                  />
-                  <label for="floatingPassword">Contraseña</label>
-                  <div
-                class="invalid-feedback"
-                v-if="v$.password.minLength.$invalid ||   
-                 v$.password.maxLength.$invalid"
-              >
-                La contraseña debe contener entre
-                {{v$.password.minLength.$params.min}} y
-                {{v$.password.maxLength.$params.max}} caracteres
-              </div>
-                  <div class="invalid-feedback" v-if="v$.password.required.$invalid">
-                    Este campo es requerido
-                  </div>
+                   <input  type="password" class="form-control"  :class="{ 'is-invalid': v$.password.$error }" id="floatingPassword" v-model="state.password"  placeholder="Contraseña" />
+                      <label for="floatingPassword">Contraseña</label>
+                         <div  class="invalid-feedback"  v-if="v$.password.minLength.$invalid ||  v$.password.maxLength.$invalid">
+                            La contraseña debe contener entre
+                              {{v$.password.minLength.$params.min}} y
+                                {{v$.password.maxLength.$params.max}} caracteres
+                          </div>
+                    <div class="invalid-feedback" v-if="v$.password.required.$invalid">
+                       Este campo es requerido
+                    </div>
                 </div>
               </div>
-              <div class="col">
-                <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="password"
-                    class="form-control"
-                    :class="{ 'is-invalid': v$.confirmPassword.$error }"
-                    id="floatingConfPassword"
-                    v-model="state.confirmPassword"
-                    placeholder="Confirmar Contraseña"
-                  />
-                  <label for="floatingConfPassword">Confirmar Contraseña</label>
-                  <div
-                    class="invalid-feedback"
-                    v-if="v$.confirmPassword.required.$invalid"
-                  >
-                    Este campo es requerido
-                  </div>
-                  <div
-                    class="invalid-feedback"
-                    v-if="v$.confirmPassword.sameAsPass.$invalid"
-                  >
+    <div class="col">
+       <div class="form-floating" style="margin: 1em 0px 0px 0px">
+          <input  type="password" class="form-control"  :class="{ 'is-invalid': v$.confirmPassword.$error }"  id="floatingConfPassword" v-model="state.confirmPassword" placeholder="Confirmar Contraseña"/>
+            <label for="floatingConfPassword">Confirmar Contraseña</label>
+              <div  class="invalid-feedback"  v-if="v$.confirmPassword.required.$invalid">
+                Este campo es requerido
+              </div>
+                  <div  class="invalid-feedback"  v-if="v$.confirmPassword.sameAsPass.$invalid">
                     Las contraseñas no coinciden
                   </div>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+          </div>
             <div class="row">
               <div class="col">
                 <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': v$.fName.$error }"
-                    id="floatingFName"
-                    v-model="state.fName"
-                    placeholder="Primer Nombre"
-                  />
-                  <label for="floatingFName">Primer Nombre</label>
-                  <div
-                class="invalid-feedback"
-                v-if="v$.fName.minLength.$invalid ||   
-                 v$.fName.maxLength.$invalid"
-              >
-                El primer nombre debe contener entre
-                {{v$.fName.minLength.$params.min}} y
-                {{v$.fName.maxLength.$params.max}} caracteres
-              </div>
-                  <div class="invalid-feedback" v-if="v$.fName.required.$invalid">
-                    Este campo es requerido
-                  </div>
+                  <input  type="text" class="form-control"  :class="{ 'is-invalid': v$.fName.$error }"  id="floatingFName"  v-model="state.fName" placeholder="Primer Nombre"/>
+                    <label for="floatingFName">Primer Nombre</label>
+                      <div  class="invalid-feedback"  v-if="v$.fName.minLength.$invalid ||  v$.fName.maxLength.$invalid">
+                         El primer nombre debe contener entre
+                          {{v$.fName.minLength.$params.min}} y
+                            {{v$.fName.maxLength.$params.max}} caracteres
+                      </div>
+      <div class="invalid-feedback" v-if="v$.fName.required.$invalid">
+        Este campo es requerido
+      </div>
                 </div>
-                <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': v$.fSurname.$error }"
-                    id="floatingFSurname"
-                    v-model="state.fSurname"
-                    placeholder="Primer Apellido"
-                  />
-                  <label for="floatingFSurname">Primer Apellido</label>
-                  <div
-                class="invalid-feedback"
-                v-if="v$.fSurname.minLength.$invalid ||   
-                 v$.fSurname.maxLength.$invalid"
-              >
-                El primer Apellido debe contener entre
-                {{v$.fSurname.minLength.$params.min}} y
-                {{v$.fSurname.maxLength.$params.max}} caracteres
+      <div class="form-floating" style="margin: 1em 0px 0px 0px">
+        <input  type="text" class="form-control"  :class="{ 'is-invalid': v$.fSurname.$error }" id="floatingFSurname" v-model="state.fSurname"  placeholder="Primer Apellido"/>
+          <label for="floatingFSurname">Primer Apellido</label>
+            <div class="invalid-feedback" v-if="v$.fSurname.minLength.$invalid || v$.fSurname.maxLength.$invalid"> El primer Apellido debe contener entre {{v$.fSurname.minLength.$params.min}} y {{v$.fSurname.maxLength.$params.max}} caracteres
+            </div>
+              <div class="invalid-feedback" v-if="v$.fSurname.required.$invalid"> 
+                Este campo es requerido
               </div>
-                  <div class="invalid-feedback" v-if="v$.fSurname.required.$invalid">
-                    Este campo es requerido
-                  </div>
-                </div>
+      </div>
               </div>
               <div class="col">
                 <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="floatingSName"
-                    v-model="state.sName"
-                    placeholder="Segundo Nombre"
-                  />
+                  <input type="text" class="form-control" id="floatingSName" v-model="state.sName" placeholder="Segundo Nombre"/>
                   <label for="floatingSName">Segundo Nombre</label>
                 </div>
-                <div class="form-floating" style="margin: 1em 0px 0px 0px">
-                  <input
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': v$.sSurname.$error }"
-                    id="floatingSSurname"
-                    v-model="state.sSurname"
-                    placeholder="Segundo Apellido"
-                  />
-                  <label for="floatingSSurname">Segundo Apellido</label>
-                  <div
-                class="invalid-feedback"
-                v-if="v$.sSurname.minLength.$invalid ||   
-                 v$.sSurname.maxLength.$invalid"
-              >
-                El segundo Apellido debe contener entre
-                {{v$.sSurname.minLength.$params.min}} y
-                {{v$.sSurname.maxLength.$params.max}} caracteres
-              </div>
-                  <div class="invalid-feedback" v-if="v$.sSurname.required.$invalid">
-                    Este campo es requerido
-                  </div>
-                </div>
+                    <div class="form-floating" style="margin: 1em 0px 0px 0px">
+                      <input type="text" class="form-control" :class="{ 'is-invalid': v$.sSurname.$error }" id="floatingSSurname" v-model="state.sSurname" placeholder="Segundo Apellido"/>
+                        <label for="floatingSSurname">Segundo Apellido</label>
+                           <div class="invalid-feedback" v-if="v$.sSurname.minLength.$invalid || v$.sSurname.maxLength.$invalid">
+                              El segundo Apellido debe contener entre
+                               {{v$.sSurname.minLength.$params.min}} y
+                                 {{v$.sSurname.maxLength.$params.max}} caracteres
+                            </div>
+                              <div class="invalid-feedback" v-if="v$.sSurname.required.$invalid">
+                                Este campo es requerido
+                              </div>
+                    </div>
               </div>
             </div>
             <div class="form-floating" style="margin: 1em 0px 0px 0px">
-              <input
-                type="text"
-                class="form-control"
-                :class="{ 'is-invalid': v$.email.$error || state.email_bool }"
-                id="floatingEmail"
-                v-model="state.email"
-                placeholder="name@example.com"
-              />
-              <label for="floatingEmail">Correo</label>
-              <div class="invalid-feedback" v-if="v$.email.required.$invalid">
-                Este campo es requerido
-              </div>
-              <div class="invalid-feedback" v-if="state.email_bool">
-                El correo electronico ya se encuentra en uso
-              </div>
+              <input  type="text" class="form-control"  :class="{ 'is-invalid': v$.email.$error || state.email_bool }"  id="floatingEmail"  v-model="state.email" placeholder="name@example.com"/>
+                <label for="floatingEmail">Correo</label>
+                  <div class="invalid-feedback" v-if="v$.email.required.$invalid">
+                    Este campo es requerido
+                  </div>
+                    <div class="invalid-feedback" v-if="state.email_bool">
+                      El correo electronico ya se encuentra en uso
+                    </div>
             </div>
-            <button
-              class="w-100 btn btn-lg btn-hover color-3"
-              style="margin: 1em 0px 1em 0px"
-              type="submit"
-              @click="guarde">
+            <button class="w-100 btn btn-lg btn-hover color-3"  style="margin: 1em 0px 1em 0px" type="submit" @click="guarde">
               Registrar
             </button>
           </form>
@@ -210,11 +120,17 @@
     </div>
   </div>
 </template>
+
 <script>
   import useVuelidate from '@vuelidate/core'
   import { required, minLength, maxLength, sameAs, email } from '@vuelidate/validators'
   import {reactive, computed} from 'vue'
   import axios from 'axios'
+   import { inject } from 'vue'
+  import Swal from 'sweetalert2'
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/css/index.css';
+
   export default{
     setup(){
       const state = reactive({
@@ -266,10 +182,15 @@
     }
       }
     })
-      const v$ = useVuelidate(rules, state)
-      return{
-        state,
-        v$,
+    const v$ = useVuelidate(rules, state)
+    return{
+      state,
+      v$,
+    }
+    },
+    data() {
+      return {
+        fullPage: false
       }
     },
     methods:{
@@ -288,8 +209,21 @@
           "second_surname" : this.state.sSurname,
           "email" : this.state.email,
         };
+         let loader = this.$loading.show({
+                    // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                opacity: 0.7,
+                loader: 'spinner',
+                color: 'blue'                 
+              }); 
         axios.post("https://backend.jose-albertoa97.repl.co/api/register", user).then((res) => {
-   alert('Se ha registrado el usuario');
+
+             loader.hide();
+
+              Swal.fire(
+              'Ingreso correcto!',
+              'Se ha registrado el usuario',
+              'success' );
         this.state.username = '';
         this.state.password = '';
         this.state.confirmPassword = '';
@@ -301,19 +235,22 @@
 }).catch((err) => {
    console.log(err);
           if(err.response.status == 421){
+                loader.hide();
             this.state.user_bool=true;
             this.state.email_bool=true;
           }
           if(err.response.status == 422){
+                loader.hide();
             this.state.user_bool=true;
           }
           if(err.response.status == 423){
+                loader.hide();
             this.state.email_bool=true;
           }
 });
 }},
       vuelvaAlInicio(){
-        this.$router.push('/task')
+        this.$router.push('/')
       }
       }
     }
@@ -323,7 +260,7 @@
   color: white;
   border: none;
   background-size: 300% 100%;
-  moz-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -331,7 +268,7 @@
 
 .btn-hover:hover {
   background-position: 100% 0;
-  moz-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;

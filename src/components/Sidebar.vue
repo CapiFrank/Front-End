@@ -45,24 +45,20 @@
      
     <p>
        <!-- configurar data-bs-target, problemas -->
-       <a class="button" type="button" data-bs-toggle="collapse" 
-            
-         data-bs-target= "#Lista1"  
-         
-         aria-expanded="true">
-          <span class="material-icons">arrow_drop_down</span>
+      <a class="button" type="button" data-bs-toggle="collapse" data-bs-target= "#Lista1"  aria-expanded="true">
+        <span class="material-icons">arrow_drop_down</span>
     		  <span class="text" style="width: 190px" >{{item.name}}</span>
-
+           
            <template v-if="estado"> 
-          <!-- boton con script para actualizar -->
-          <button  @click="actualizarGrupo(item.id, item.name)">
-            <i style="margin: 5px" class="material-icons" >edit</i>
-          </button>
-           </template>
-         </a>      
+            <!-- boton con script para actualizar -->
+              <button  @click="actualizarGrupo(item.id, item.name)">
+                <i style="margin: 5px" class="material-icons" >edit</i>
+              </button>
+            </template>
+        </a>      
     </p>
   <!-- vfor para desplegar -->
-    <a v-for="(lista, index) in listas">
+    <a v-for="(lista, index) in listas" :key="`menu_${index}`">
       <template v-if="lista.id_checklist_group === item.id">    
             <div :id="'Lista'+item.id" class="collapse" >
                 <router-link to="/" class="button" >
@@ -83,8 +79,7 @@
 
 </template> <!-- fin  -->
 
-      
-		</div> <!-- Fin del Div de Menu -->
+</div> <!-- Fin del Div de Menu -->
 
 </aside>
   
@@ -96,149 +91,119 @@
 
 
 <script setup> 
-import { ref, onMounted /*computed */} from 'vue'
-import logoURL from '../assets/logo.svg'
-import axios from 'axios'
-  /**/
-import { inject } from 'vue'
-const swal = inject('$swal')
+  import { ref, onMounted /*computed */} from 'vue'
+  import logoURL from '../assets/logo.svg'
+  import axios from 'axios'
+  import { inject } from 'vue'
   import Swal from 'sweetalert2'
- 
+  const swal = inject('$swal')
   
-  /**/
-const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
-  
-const ToggleMenu = () => {
-	is_expanded.value = !is_expanded.value
-	localStorage.setItem("is_expanded", is_expanded.value)
-}
+      const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
+      const menu = ref(null); 
+      const loadingMenu = ref(false); 
+      const updateError = ref(false);
+      const listas = ref(null);
+      const loadingListas = ref(false);
+      let estado = ref(false); 
 
-  
-const menu = ref(null); 
-const loadingMenu = ref(false); 
-const updateError = ref(false);
-const listas = ref(null);
-const loadingListas = ref(false);
-  
-let estado = ref(false); 
-  
- onMounted(() => {
+            const ToggleMenu = () => {
+	            is_expanded.value = !is_expanded.value
+                	localStorage.setItem("is_expanded", is_expanded.value)
+                }
+                
+      onMounted(() => {
+         getTodos(),
+           getListas(),
+            verif() 
+              })
 
- 
-     getTodos(),
-     getListas(),
-       verif() 
-         
- })
-
-function verif() {
-  if (localStorage.getItem('rol') == 1) {
-  estado.value = true;
-}else{
-  estado.value = false;
-}
-}
+     function verif() {
+       if (localStorage.getItem('rol') == 1) {
+          estado.value = true;
+             }else{
+                estado.value = false;
+              }
+      }
   
-  function getTodos() {
-    loadingMenu.value = true;
-    return axios.get('https://backend.mary-angelangel.repl.co/api/groups').then(response => {
-        menu.value = response.data
-        }).catch(e=> console.log(e)).finally(()=> loadingMenu.value = false)
-  }
+      function getTodos() {
+        loadingMenu.value = true;
+          return axios.get('https://backend.mary-angelangel.repl.co/api/groups').then(response => {
+            menu.value = response.data}).catch(e=> console.log(e)).finally(()=> loadingMenu.value = false)
+      }
 
-  function getListas() {
-    loadingListas.value = true;
-    return axios.get('https://backend.mary-angelangel.repl.co/api/checklists').then(response => {
-        listas.value = response.data
-        }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
-  }
+      function getListas() {
+        loadingListas.value = true;
+          return axios.get('https://backend.mary-angelangel.repl.co/api/checklists').then(response => {
+            listas.value = response.data
+               }).catch(e=> console.log(e)).finally(()=> loadingListas.value = false)
+       }
 
 
   const actualizarGrupo = (id, name) => {
-    Swal.fire({
-        title: 'EDITAR',
-        html:
-   '<div class="form-group"><div class="row"><label class="col-sm-3 col-form-label">Nombre</label><div class="col-sm-7">    <input id="name" value="'+name+'" type="text" class="form-control" requiered ></div></div></div>' , 
-        focusConfirm: false,
-        showCancelButton: true,                         
-        }).then((result) => {
+                Swal.fire({
+                title: 'EDITAR',
+                html:
+                '<div class="form-group"><div class="row"><label class="col-sm-3 col-form-label">Nombre</label><div class="col-sm-7">    <input id="name" value="'+name+'" type="text" class="form-control" requiered ></div></div></div>' , 
+                focusConfirm: false,
+                showCancelButton: true,                         
+                }).then((result) => {
           if (result.value) { 
-            loadingMenu.value = true;
-            
-         name = document.getElementById('name').value,
-         
-axios.put(`https://backend.mary-angelangel.repl.co/api/groups/update/${id}` , {name}).then( response => {
-  if(response.status === 200){
-    Swal.fire(
+                loadingMenu.value = true; 
+                 name = document.getElementById('name').value,    
+                axios.put(`https://backend.mary-angelangel.repl.co/api/groups/update/${id}` , {name}).then( response => {
+          if(response.status === 200){
+               Swal.fire(
               '¡Actualizado!',
               'El registro ha sido actualizado.',
               'success');  
-  }else{
-    Swal.fire(
+          }else{
+               Swal.fire(
               '¡Error!',
               'Ha ocurrido un error',
-              'error');    
-  }
-        menu.value = menu.value.map(item => {
-          return item.id === response.data.data.id ? response.data.data : item
-        })
-     console.log(response,  menu.value )}).catch(e=> {console.log(e) 
+              'error'); }
+               menu.value = menu.value.map(item => {
+          return item.id === response.data.data.id ? response.data.data : item})
+                console.log(response,  menu.value )}).catch(e=> {console.log(e) 
                Swal.fire(
               '¡Error!',
               'Ha ocurrido un error',
               'error'); } ).finally(()=> loadingMenu.value = false)  
           }else{
-            Swal.fire(
+              Swal.fire(
               '¡Cancelado!',
               'Ha cancelado la operación',
-              'error');
-          }
-      
+              'error');}   
         });   
 }
 
   const eliminarlista = (id, name) => {
 
-    Swal.fire({
+        Swal.fire({
         title: '¿Eliminar Lista?',
         html:
-   '<div class="form-group">    <label id="namelist">"'+name+'"</label> </div>' , 
+       '<div class="form-group">    <label id="namelist">"'+name+'"</label> </div>' , 
         focusConfirm: false,
         showCancelButton: true,                         
         }).then((result) => {
           if (result.value) { 
             loadingMenu.value = true;
-            
-         name = document.getElementById('namelist').value,
-         
-axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` , {name}).then( response => {
-
-  if(response.status === 200){
-    
-    Swal.fire(
-              '¡Eliminado!',
-              'Se ha eliminado con éxito.',
-              'success'
-            )
-  }else{
- Swal.fire(
-              '¡Error!',
-              'Ha ocurrido un error',
-              'error'
-            )   
-  }
-  
-  listas.value = listas.value.map(lista => {
+                name = document.getElementById('namelist').value,       
+                  axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` , {name}).then( response => {
+          if(response.status === 200){
+              Swal.fire('¡Eliminado!','Se ha eliminado con éxito.','success' );
+           }else{
+              Swal.fire('¡Error!','Ha ocurrido un error','error' );  
+          }
+    listas.value = listas.value.map(lista => {
           return lista.id === response.data.data.id ? response.data.data : lista
         })
      console.log(response,  listas.value )}).catch(e=> {console.log(e) 
-                                                     Swal.fire(
+              Swal.fire(
               '¡Error!',
               'Ha ocurrido un error 1',
               'error'
-            ) }
-                                                ).finally(()=> loadingMenu.value = false)   
+            ) }).finally(()=> loadingMenu.value = false)   
           }else{
             Swal.fire(
               '¡Cancelado!',
@@ -247,11 +212,7 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
             ) 
           }
         });
-}
-
-
-
-  
+    }
 </script>
 
 <style lang="scss" scoped>
@@ -271,11 +232,11 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
   align-items: center;
   flex-shrink: 1;
   flex-grow: 1;
-  hight: 60%;
+  height: 60%;
   width: 60%;
 }
 .loading-container > div{
-   hight: auto;
+   height: auto;
   width: 60%;
   position: relative;
     left: 60px;
@@ -285,7 +246,7 @@ axios.delete(`https://backend.mary-angelangel.repl.co/api/lists/destroy/${id}` ,
 .loading-container > div > img{
   
   width: 60%;
-  hight: 60%;
+  height: 60%;
 } 
   
   .btn-bd-primary {
