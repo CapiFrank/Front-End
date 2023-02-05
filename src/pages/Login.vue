@@ -48,7 +48,7 @@
                 </div>
             <button
               class="w-50 btn btn-lg btn-hover color-3"
-              style="margin: 1em 0px 1em 200px"
+              style="margin: 1em 1em 1em 200px"
               type="submit"
               @click="guarde">
               Iniciar Sesión
