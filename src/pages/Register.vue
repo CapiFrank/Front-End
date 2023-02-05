@@ -1,20 +1,17 @@
 <template>
   <div
-    class="container card text-center"
-    style="background: white; width: 40rem; padding: 2em 2em 0px 2em"
-  >
+    class="container card text-center contenedor-registro">
     <div class="row justify-content-start">
       <button
         class="fa-solid fa-angles-left fa-2x col-1"
         style="color: #673ab7"
-        @click="vuelvaAlInicio"
-      ></button>
+        @click="vuelvaAlInicio"></button>
     </div>
     <div class="row">
       <div class="col align-self-center">
-        <main class="form-signin w-100 m-auto">
+        <main class="form-signin w-100+ m-auto">
           <form onsubmit="event.preventDefault();" novalidate>
-            <i  class="fa-regular fa-circle-user fa-10x"  style="color: #673ab7"></i>
+            <i  class="fa-regular fa-circle-user fa-5x"  style="color: #673ab7"></i>
               <div class="form-floating" style="margin: 1em 0px 0px 0px">
                 <input  type="text" class="form-control"  :class="{ 'is-invalid': v$.username.$error || state.user_bool}" id="floatingUsername" v-model="state.username"  placeholder="Nombre de usuario"/>
                  <label for="floatingUsername">Nombre de usuario</label>
@@ -213,17 +210,12 @@
                     // Optional parameters
                 container: this.fullPage ? null : this.$refs.formContainer,
                 opacity: 0.7,
-                loader: 'spinner',
+                loader: 'dots',
                 color: 'blue'                 
               }); 
         axios.post("https://backend.jose-albertoa97.repl.co/api/register", user).then((res) => {
-
-             loader.hide();
-
-              Swal.fire(
-              'Ingreso correcto!',
-              'Se ha registrado el usuario',
-              'success' );
+          loader.hide();
+            Swal.fire('Ingreso correcto!','Se ha registrado el usuario','success');
         this.state.username = '';
         this.state.password = '';
         this.state.confirmPassword = '';
@@ -256,6 +248,17 @@
     }
 </script>
 <style>
+
+
+.contenedor-registro{
+ background: white; 
+ width: 40rem; 
+  padding:2em 2em 0px 2em;
+  border: PowderBlue 5px solid;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
 .btn-hover {
   color: white;
   border: none;

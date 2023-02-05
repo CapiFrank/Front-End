@@ -115,7 +115,7 @@
                     // Optional parameters
                 container: this.fullPage ? null : this.$refs.formContainer,
                 opacity: 0.7,
-                loader: 'spinner',
+                loader: 'dots',
                 color: 'blue'                 
               });       
 axios.post(`https://ProyectoAnalsis.derianbustos.repl.co/api/login`, {email: this.state.email, password:  this.state.password,}).then( data=>{
